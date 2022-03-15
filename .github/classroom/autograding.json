@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Autograder unavailable until 2022-03-21",
+      "setup": "",
+      "run": "printf \"The autograder will be unavailable until 2022-03-21. Use the\\n\"; printf \"assignment instructions to develop tests to determine if your app is\\n\"; printf \"operating accordingly until then.\"; printf \"\"; printf \"OR: enjoy spring break! Get some rest and don't worry about this\\n\"; printf \"assignment until we come back.\\n\"",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}
