@@ -25,17 +25,17 @@
       "setup": "",
       "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT > /dev/null 2>&1; exit 0) & sleep 1s && curl -I http://localhost:${PORT}/app/error/ && sleep 5s",
       "input": "",
-      "output": "500 INTERNAL SERVER ERROR",
+      "output": "500 Internal Server Error",
       "comparison": "included",
       "timeout": 10,
       "points": 10000
     },
     {
       "name": "Access log file option (do not create a log file)",
-      "setup": "",
+      "setup": "[ ! -e access.log ] || rm access.log",
       "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false > /dev/null; exit 0) & sleep 5s && ls",
       "input": "",
-      "output": "^((?!\\.log).)*$",
+      "output": "(?!\\.log)",
       "comparison": "included",
       "timeout": 10,
       "points": 10000
