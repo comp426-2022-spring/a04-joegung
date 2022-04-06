@@ -1,12 +1,52 @@
 {
   "tests": [
     {
-      "name": "Autograder unavailable until 2022-03-21",
-      "setup": "",
-      "run": "printf \"The autograder will be unavailable until 2022-03-21. Use the\\n\"; printf \"assignment instructions to develop tests to determine if your app is\\n\"; printf \"operating accordingly until then.\"; printf \"\"; printf \"OR: enjoy spring break! Get some rest and don't worry about this\\n\"; printf \"assignment until we come back.\\n\"",
+      "name": "Database created",
+      "setup": "npm install && *.db",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 5s && ls",
       "input": "",
-      "output": "",
+      "output": ".db",
       "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Access log endpoint",
+      "setup": "",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT; exit 0) & sleep 1s && curl http://localhost:${PORT}/app/log/access/ && sleep 5s",
+      "input": "",
+      "output": "\\[\\{.*(id).*\\}\\]",
+      "comparison": "regex",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Error test endpoint",
+      "setup": "",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT; exit 0) & sleep 1s && curl -I http://localhost:${PORT}/app/error/ && sleep 5s",
+      "input": "",
+      "output": "500 INTERNAL SERVER ERROR",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Access log file option (do not create a log file)",
+      "setup": "rm *.log",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false; exit 0) & sleep 5s && ls",
+      "input": "",
+      "output": "^((?!\\.log).)*$",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "Help text",
+      "setup": "",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --help; exit 0) & sleep 1s",
+      "input": "",
+      "output": "(--help).*(Return this message and exit.)",
+      "comparison": "regex",
       "timeout": 10,
       "points": null
     }
