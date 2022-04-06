@@ -2,28 +2,28 @@
   "tests": [
     {
       "name": "Database created",
-      "setup": "npm install && *.db",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 5s && ls",
+      "setup": "npm install && rm *.db",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT > /dev/null; exit 0) & sleep 5s && ls",
       "input": "",
       "output": ".db",
       "comparison": "included",
       "timeout": 10,
-      "points": null
+      "points": 10000
     },
     {
       "name": "Access log endpoint",
       "setup": "",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT; exit 0) & sleep 1s && curl http://localhost:${PORT}/app/log/access/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT > /dev/null; exit 0) & sleep 1s && curl http://localhost:${PORT}/app/log/access/ && sleep 5s",
       "input": "",
       "output": "\\[\\{.*(id).*\\}\\]",
       "comparison": "regex",
       "timeout": 10,
-      "points": null
+      "points": 10000
     },
     {
       "name": "Error test endpoint",
       "setup": "",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT; exit 0) & sleep 1s && curl -I http://localhost:${PORT}/app/error/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT > /dev/null; exit 0) & sleep 1s && curl -I http://localhost:${PORT}/app/error/ && sleep 5s",
       "input": "",
       "output": "500 INTERNAL SERVER ERROR",
       "comparison": "included",
@@ -33,12 +33,12 @@
     {
       "name": "Access log file option (do not create a log file)",
       "setup": "rm *.log",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false; exit 0) & sleep 5s && ls",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT > /dev/null; exit 0) & sleep 5s && ls",
       "input": "",
       "output": "^((?!\\.log).)*$",
       "comparison": "included",
       "timeout": 10,
-      "points": null
+      "points": 10000
     },
     {
       "name": "Help text",
@@ -48,7 +48,17 @@
       "output": "(--help).*(Return this message and exit.)",
       "comparison": "regex",
       "timeout": 10,
-      "points": null
+      "points": 10000
+    },
+    {
+      "name": "Error endpoint defined (the error test above will always fail because error)",
+      "setup": "",
+      "run": "cat server.js",
+      "input": "",
+      "output": "Error test works.",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 10000
     }
   ]
 }
