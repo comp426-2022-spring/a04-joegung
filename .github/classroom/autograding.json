@@ -23,9 +23,9 @@
     {
       "name": "Error test endpoint",
       "setup": "",
-      "run": "grep 'throw new' server.js",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --debug --port=$PORT > /dev/null 2>&1; exit 0) & sleep 1s && curl -I http://localhost:${PORT}/app/error/ && sleep 5s",
       "input": "",
-      "output": "(throw new [Ee]rror)",
+      "output": "500 Internal Server Error",
       "comparison": "regex",
       "timeout": 10,
       "points": 10000
