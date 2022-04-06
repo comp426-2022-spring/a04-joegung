@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Database created",
-      "setup": "rm *.db && npm install",
+      "setup": "npm install",
       "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT > /dev/null; exit 0) & sleep 5s && ls",
       "input": "",
       "output": "log.db",
@@ -32,7 +32,7 @@
     },
     {
       "name": "Access log file option (do not create a log file)",
-      "setup": "rm *.log",
+      "setup": "",
       "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false > /dev/null; exit 0) & sleep 5s && ls",
       "input": "",
       "output": "^((?!\\.log).)*$",
