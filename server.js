@@ -1,6 +1,8 @@
 
 const argv = require("minimist")(process.argv.slice(2));
 
+argv.log=false;
+
 if (argv.help) {
     console.log("server.js [options]");
     console.log("   --port      Set the port number for the server to listen on. Must be an integer");
@@ -43,7 +45,7 @@ const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%', port));
 });
 
-if (argv.log) {
+if (argv.log==true) {
     const accesslog = fs.createWriteStream('./access.log', {flags: 'a'});
     app.use(morgan("tiny", {stream: accesslog}));
 }
