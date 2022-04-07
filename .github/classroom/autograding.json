@@ -31,12 +31,12 @@
       "points": 10000
     },
     {
-      "name": "Access log file option (do not create a log file)",
+      "name": "Access log file option --log=false (do not create a log file)",
       "setup": "SHELL=/bin/bash && if [ -f access.log ]; then rm access.log; fi",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false > /dev/null; exit 0) & sleep 5s && ls | grep \"access.log\"",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT --log=false > /dev/null; exit 0) & sleep 5s && ls | if [ -f access.log ]; then echo \"fail\"; else echo \"success\"; fi",
       "input": "",
-      "output": "",
-      "comparison": "exact",
+      "output": "success",
+      "comparison": "included",
       "timeout": 10,
       "points": 10000
     },
