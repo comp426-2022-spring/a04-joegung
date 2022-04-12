@@ -8,7 +8,7 @@
       "output": "log.db",
       "comparison": "included",
       "timeout": 10,
-      "points": 10000
+      "points": 14000
     },
     {
       "name": "Access log endpoint",
@@ -18,7 +18,7 @@
       "output": "\\[\\{.*(id).*\\}\\]",
       "comparison": "regex",
       "timeout": 10,
-      "points": 10000
+      "points": 14000
     },
     {
       "name": "Error test endpoint",
@@ -28,7 +28,7 @@
       "output": "500 Internal Server Error",
       "comparison": "regex",
       "timeout": 10,
-      "points": 10000
+      "points": 11429
     },
     {
       "name": "Access log file option --log=false (do not create a log file)",
@@ -38,7 +38,7 @@
       "output": "success",
       "comparison": "included",
       "timeout": 10,
-      "points": 10000
+      "points": 14000
     },
     {
       "name": "Help text",
@@ -48,7 +48,7 @@
       "output": "(--help).*(Return this message and exit.)",
       "comparison": "regex",
       "timeout": 10,
-      "points": 10000
+      "points": 14000
     }
   ]
 }
