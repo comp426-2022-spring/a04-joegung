@@ -1,0 +1,25 @@
+{
+  "name": "databases_logs_errors_middleware",
+  "version": "1.0.1",
+  "description": "Databasees, logs, errors, and middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp426-2022-spring/a04-joegung.git"
+  },
+  "author": "Joe Gung",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/comp426-2022-spring/a04-joegung/issues"
+  },
+  "homepage": "https://github.com/comp426-2022-spring/a04-joegung#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "express": "^4.17.3",
+    "minimist": "^1.2.5",
+    "morgan": "^1.10.0"
+  }
+}
